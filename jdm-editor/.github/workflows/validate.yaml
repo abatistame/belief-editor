@@ -1,0 +1,24 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Validate
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          run_install: true
+
+      - name: Lint and prettier
+        run: pnpm format
+
+      - name: Build
+        run: pnpm build

@@ -14,6 +14,11 @@ https://hub.docker.com/r/gorules/editor
 
 ## Quickstart
 
+Install rust:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
 Run rust backend:
 ```bash
 make watch

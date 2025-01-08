@@ -1,0 +1,89 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
+import React, { useState } from 'react';
+
+import type { ExpressionEntry } from './context/expression-store.context';
+import { Expression } from './expression';
+
+const expressionDefault: ExpressionEntry[] = [
+  { id: '1', key: 'customer.fullName', value: 'customer.firstName + " " + customer.lastName' },
+  { id: '2', key: 'customer.isPremium', value: 'contains(customer.tags, "premium")' },
+  { id: '3', key: 'customer.purchaseTotals', value: 'sum(map(customer.purchases, #.amount))' },
+];
+
+const expressionDefaultObject = {
+  customer: {
+    firstName: 'John',
+    lastName: 'Doe',
+    tags: ['premium'],
+    purchases: [{ id: '', amount: 100 }],
+  },
+};
+
+const meta: Meta<typeof Expression> = {
+  /* 👇 The title prop is optional.
+   * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
+   * to learn how to generate automatic titles
+   */
+  title: 'Decision Node',
+  component: Expression,
+  args: {
+    configurable: true,
+    disabled: false,
+    defaultValue: expressionDefault,
+    inputData: expressionDefaultObject,
+    onChange: fn(),
+  },
+  argTypes: {
+    inputData: { control: 'object' },
+    manager: { table: { disable: true } },
+    value: { table: { disable: true } },
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Expression>;
+
+const StoryWrapper: React.FC<React.PropsWithChildren<any>> = ({ children }) => (
+  <div style={{ maxWidth: 900 }}>{children}</div>
+);
+
+export const Uncontrolled: Story = {
+  render: (args) => {
+    return (
+      <StoryWrapper>
+        <Expression {...args} />
+      </StoryWrapper>
+    );
+  },
+};
+
+export const Controlled: Story = {
+  render: (args) => {
+    const [value, setValue] = useState(expressionDefault);
+
+    return (
+      <StoryWrapper>
+        <Expression value={value} onChange={setValue} {...args} />
+      </StoryWrapper>
+    );
+  },
+};
+
+export const WithTrace: Story = {
+  args: {
+    traceData: {
+      'customer.fullName': { result: '"John Doe"' },
+      'customer.isPremium': { result: 'true' },
+      'customer.purchaseTotals': { result: '[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]' },
+    },
+  },
+  render: (args) => {
+    return (
+      <StoryWrapper>
+        <Expression {...args} />
+      </StoryWrapper>
+    );
+  },
+};

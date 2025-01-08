@@ -1,0 +1,39 @@
+{
+  "name": "@gorules/jdm-monorepo",
+  "private": true,
+  "scripts": {
+    "lerna": "lerna",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "lint": "eslint --ext js,ts,jsx,tsx .",
+    "lint:fix": "pnpm lint --fix",
+    "prettier": "prettier --check .",
+    "prettier:fix": "pnpm prettier --write",
+    "format": "run-s lint prettier",
+    "format:fix": "run-s lint:fix prettier:fix"
+  },
+  "engines": {
+    "pnpm": "~9"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.7.26",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.11",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-file-progress": "^1.5.0",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "lerna": "^8.1.8",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.2"
+  },
+  "version": "0.1.0",
+  "dependencies": {
+    "@gorules/jdm-editor": "^1.32.1"
+  }
+}
