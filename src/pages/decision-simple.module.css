@@ -20,6 +20,17 @@
     }
 }
 
+.headingDescription {
+    padding-left: 8px;
+    transition: background-color .2s ease-in-out;
+    border-radius: 6px;
+    cursor: text;
+    opacity: .5;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.06);
+    }
+}
+
 * {
     box-sizing: border-box;
 }

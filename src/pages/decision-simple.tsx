@@ -31,7 +31,8 @@ export const DecisionSimplePage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [fileHandle, setFileHandle] = useState<FileSystemFileHandle>();
   const [graph, setGraph] = useState<DecisionGraphType>({ nodes: [], edges: [] });
-  const [fileName, setFileName] = useState('Untitled Decision');
+  const [fileName, setFileName] = useState('Example Diagram');
+  const [fileDescription, setFileDescription] = useState('Decision description');
   const [graphTrace, setGraphTrace] = useState<Simulation>();
 
   useEffect(() => {
@@ -271,50 +272,19 @@ export const DecisionSimplePage: React.FC = () => {
                   }}
                 >
                   {fileName}
-                </Typography.Title>
-                <Stack horizontal verticalAlign="center" gap={8}>
-                  <Button onClick={handleNew} type={'text'} size={'small'}>
-                    New
-                  </Button>
-                  <Dropdown
-                    menu={{
-                      onClick: handleOpenMenu,
-                      items: [
-                        {
-                          label: 'File system',
-                          key: 'file-system',
-                        },
-                        {
-                          type: 'divider',
-                        },
-                        {
-                          label: 'Fintech: Company analysis',
-                          key: 'company-analysis',
-                        },
-                        {
-                          label: 'Fintech: AML',
-                          key: 'aml',
-                        },
-                        {
-                          label: 'Retail: Shipping fees',
-                          key: 'shipping-fees',
-                        },
-                      ],
-                    }}
-                  >
-                    <Button type={'text'} size={'small'}>
-                      Open
-                    </Button>
-                  </Dropdown>
-                  {supportFSApi && (
-                    <Button onClick={saveFile} type={'text'} size={'small'}>
-                      Save
-                    </Button>
-                  )}
-                  <Button onClick={saveFileAs} type={'text'} size={'small'}>
-                    Save as
-                  </Button>
-                </Stack>
+                </Typography.Title >
+                <Typography.Text
+                  style={{ margin: 0, fontWeight: 400 }}
+                  className={classes.headingDescription}
+                  editable={{
+                    text: fileName,
+                    maxLength: 24,
+                    autoSize: { maxRows: 1 },
+                    onChange: (value) => setFileDescription(value.trim()),
+                    triggerType: ['text'],
+                  }}>
+                  {fileDescription}
+                </Typography.Text>
               </div>
             </div>
           }
